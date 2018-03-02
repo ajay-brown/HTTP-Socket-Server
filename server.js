@@ -22,11 +22,21 @@ const server = net.createServer(c => {
           c.end();
         });
         break;
+      case dataString.charAt(5) === " ": //back to index
+        fs.readFile("./index.html", (err, fd) => {
+          if (err) throw err;
+          c.write("HTTP/1.1 200 OK\n\n");
+          console.log(fd.toString());
+          c.write(fd.toString());
+          c.end();
+        });
+        break;
       case dataString.charAt(6) === "y":
         fs.readFile("./hydrogen.html", (err, fd) => {
           console.log(fd.toString());
           c.write("HTTP/1.1 200 OK\n\n");
           if (err) throw err;
+          c.write(fd.toString());
           c.end();
         });
         break;
@@ -35,21 +45,26 @@ const server = net.createServer(c => {
           console.log(fd.toString());
           c.write("HTTP/1.1 200 OK\n\n");
           if (err) throw err;
+          c.write(fd.toString());
           c.end();
         });
         break;
-      case dataString.charAt(5) === "s":
+      case dataString.charAt(5) === "s": //styles.css
         c.write("HTTP/1.1 200 OK\n\n Content-Type: text/css \n\n");
         fs.readFile("./styles.css", (err, fd) => {
           console.log(fd.toString());
           c.write(fd.toString());
           if (err) throw err;
         });
+      case dataString.charAt(5) === "f": //handling favicon
+        c.write("HTTP/1.1 200OK \n\n Content-Type: image/x-icon ");
+
       default:
         fs.readFile("./404.html", (err, fd) => {
           console.log(fd.toString());
           c.write("HTTP/1.1 200 OK\n\n");
           if (err) throw err;
+          c.write(fd.toString());
           c.end();
         });
     }
