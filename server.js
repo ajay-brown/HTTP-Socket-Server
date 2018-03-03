@@ -10,14 +10,12 @@ const server = net.createServer(c => {
     const dataString = data.toString();
     console.log(dataString);
 
-    console.log(dataString.charAt(5));
-
     switch (true) {
       case dataString.charAt(5) === "i":
         fs.readFile("./index.html", (err, fd) => {
           if (err) throw err;
           c.write("HTTP/1.1 200 OK\n\n");
-          console.log(fd.toString());
+
           c.write(fd.toString());
           c.end();
         });
@@ -26,14 +24,13 @@ const server = net.createServer(c => {
         fs.readFile("./index.html", (err, fd) => {
           if (err) throw err;
           c.write("HTTP/1.1 200 OK\n\n");
-          console.log(fd.toString());
+
           c.write(fd.toString());
           c.end();
         });
         break;
       case dataString.charAt(6) === "y":
         fs.readFile("./hydrogen.html", (err, fd) => {
-          console.log(fd.toString());
           c.write("HTTP/1.1 200 OK\n\n");
           if (err) throw err;
           c.write(fd.toString());
@@ -42,7 +39,6 @@ const server = net.createServer(c => {
         break;
       case dataString.charAt(6) === "e":
         fs.readFile("./helium.html", (err, fd) => {
-          console.log(fd.toString());
           c.write("HTTP/1.1 200 OK\n\n");
           if (err) throw err;
           c.write(fd.toString());
@@ -52,7 +48,6 @@ const server = net.createServer(c => {
       case dataString.charAt(5) === "s": //styles.css
         c.write("HTTP/1.1 200 OK\n\n Content-Type: text/css \n\n");
         fs.readFile("./styles.css", (err, fd) => {
-          console.log(fd.toString());
           c.write(fd.toString());
           if (err) throw err;
         });
@@ -61,7 +56,6 @@ const server = net.createServer(c => {
 
       default:
         fs.readFile("./404.html", (err, fd) => {
-          console.log(fd.toString());
           c.write("HTTP/1.1 200 OK\n\n");
           if (err) throw err;
           c.write(fd.toString());
