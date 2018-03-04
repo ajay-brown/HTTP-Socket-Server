@@ -3,11 +3,12 @@ const fs = require("fs");
 const PORT = 80;
 
 let d = new Date().toUTCString();
+
 const client = net.createConnection(PORT, process.argv[2].toString(), () => {
   console.log("You are connected");
-  //headers
-  client.write(`GET /${process.argv[2].toString()} HTTP/1.1`);
+  client.write(`GET / HTTP/1.1`);
   client.write(`Host: ${process.argv[2].toString()}\n`);
+  //second get request
   client.write("Connection: Keep-Alive \n");
   client.write("Accept: text/html, application/json \n");
   client.write(`Date: ${d} \n`);
